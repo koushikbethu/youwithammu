@@ -40,6 +40,11 @@ Base.metadata.create_all(bind=engine)
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
+@app.get("/healthz")
+def health_check():
+    return {"status": "ok"}
+
+
 @app.get("/")
 def home():
     return {"message": "Welcome to AI Prep Coach 🚀 — Intelligent Resume Processor Active"}
