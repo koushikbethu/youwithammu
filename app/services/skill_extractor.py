@@ -14,8 +14,18 @@
 
 
 import spacy
+import subprocess
 
-nlp = spacy.load("en_core_web_sm")
+# 🧠 Try to load the spaCy model safely; if it's missing, auto-download it
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    print("⚠️ spaCy model 'en_core_web_sm' not found. Downloading now...")
+    subprocess.run(
+        ["python", "-m", "spacy", "download", "en_core_web_sm"], check=True
+    )
+    nlp = spacy.load("en_core_web_sm")
+
 
 COMMON_SKILLS = [
     "python", "java", "javascript", "html", "css", "sql",
